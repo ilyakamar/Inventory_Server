@@ -18,45 +18,11 @@
             app:met_singleLineEllipsis="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:hint="Name"
             android:text=""
             android:textSize="34sp" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtDescription"
-            app:met_baseColor="@color/colorBlack"
-            app:met_maxCharacters="11"
-            app:met_singleLineEllipsis="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:text=""
-            android:textSize="24sp"
-            android:inputType="textMultiLine"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtPrice"
-            app:met_baseColor="@color/colorBlack"
-            app:met_maxCharacters="11"
-            app:met_singleLineEllipsis="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Price"
-            android:text=""
-            android:textSize="34sp"
-            android:inputType="number"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtDiscount"
-            app:met_baseColor="@color/colorBlack"
-            app:met_maxCharacters="11"
-            app:met_singleLineEllipsis="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Discount"
-            android:text=""
-            android:textSize="34sp"
-            android:inputType="number"/>
 
 
 
