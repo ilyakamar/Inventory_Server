@@ -8,10 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {// START
 
     Button btnSignIn;
     TextView txtSlogan,tv_startScreen_welcome;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {// onCreate

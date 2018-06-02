@@ -1,0 +1,9 @@
+package com.ilyakamar.inventory_server.Interface;
+
+import android.view.View;
+
+public interface ItemClickListener {
+
+    void onClick(View view, int position,boolean isLongClick);
+
+}// end ItemClickListener
