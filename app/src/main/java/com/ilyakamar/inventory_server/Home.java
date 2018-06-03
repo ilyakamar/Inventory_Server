@@ -258,7 +258,7 @@ public class Home extends AppCompatActivity
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),Common.PICK_IMAGE_REQUEST);
-    }
+    }// end chooseImage
 
     private void loadMenu() {
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(
