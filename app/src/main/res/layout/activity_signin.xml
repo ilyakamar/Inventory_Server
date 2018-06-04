@@ -31,7 +31,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:text="Sign Up"
+                    android:text="Sign IN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -43,11 +43,7 @@
                     android:textColor="@color/colorBlack"
                     android:layout_weight="2"/>
 
-                <ImageView
-                    android:id="@+id/iv_closeLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_close_black_24dp"/>
+
 
             </LinearLayout>
 
@@ -58,17 +54,7 @@
                 android:layout_marginTop="120dp">
 
 
-                <!--<EditText-->
-                    <!--android:text=""-->
-                    <!--android:id="@+id/edtName"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="45dp"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:background="@drawable/element_for_ractangel"-->
-                    <!--android:drawableRight="@drawable/ic_person_black_24dp"-->
-                    <!--android:hint="Name"-->
-                    <!--android:textAlignment="center"-->
-                    <!--android:inputType="textPersonName"/>-->
+
 
                 <EditText
                     android:text="0542431395"
@@ -100,7 +86,7 @@
                     android:id="@+id/btnSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign Up"
+                    android:text="Sign Iמ"
                     android:textColor="@color/colorWhite"
                     android:background="@drawable/button_black"/>
 

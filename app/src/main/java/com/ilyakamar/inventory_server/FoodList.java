@@ -1,6 +1,7 @@
 package com.ilyakamar.inventory_server;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -148,18 +149,40 @@ public class FoodList extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                dialogInterface.dismiss();
+                // check if price empty  ####################################################111111111
+                String checkPrice = edtPrice.getText().toString().trim();
+                String checkName = edtName.getText().toString().trim();
 
-                // Here , just create new category
-                if (newFood != null)
+//                checkIfPriceEmpty(checkPrice);
+                if (checkPrice.equals(""))
                 {
-                    foodList.push().setValue(newFood);
+                    Toast.makeText(FoodList.this, "צריך להזין מחיר",
+                            Toast.LENGTH_SHORT).show();
+                    dialogInterface.cancel();
 
-                    // Snackbar
-                    Snackbar.make(rootLayout, "New Category "+newFood.getName() +" was added",
-                            Snackbar.LENGTH_SHORT).show();
+                }else if(checkName.equals("")){
+                    Toast.makeText(FoodList.this, "צריך להגדיר שם",
+                            Toast.LENGTH_SHORT).show();
+                    dialogInterface.cancel();
+
+                }else {
+                    dialogInterface.dismiss();
+                    // Here , just create new category
+                    if (newFood != null)
+                    {
+                        foodList.push().setValue(newFood);
+                        // Snackbar
+                        Snackbar.make(rootLayout, "New Category "+newFood.getName() +" was added",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+
                 }
-            }
+
+
+
+
+
+            }// end onClick
         });// end setPositiveButton
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
@@ -171,6 +194,8 @@ public class FoodList extends AppCompatActivity {
         });// end setNegativeButton
         alertDialog.show();
     }// end showAddFoodDialog
+
+
 
     private void loadListFood(String categoryId) {
 
@@ -344,9 +369,24 @@ public class FoodList extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                dialogInterface.dismiss();
 
-                // Here , just create new category
+                String checkPrice= edtPrice.getText().toString().trim();
+                String checkName= edtName.getText().toString().trim();
+
+                if (checkPrice.equals(""))
+                {
+                    Toast.makeText(FoodList.this, "צריך להזין מחיר",
+                            Toast.LENGTH_SHORT).show();
+                    dialogInterface.cancel();
+
+                }else if(checkName.equals("")){
+                    Toast.makeText(FoodList.this, "צריך להגדיר שם",
+                            Toast.LENGTH_SHORT).show();
+                    dialogInterface.cancel();
+                }else {
+                    dialogInterface.dismiss();
+
+                    // Here , just create new category
 
                     // Update information
                     item.setName(edtName.getText().toString());
@@ -360,6 +400,10 @@ public class FoodList extends AppCompatActivity {
                     // Snackbar
                     Snackbar.make(rootLayout, " Food "+item.getName() +" was edited",
                             Snackbar.LENGTH_SHORT).show();
+                }
+
+
+
 
             }
         });// end setPositiveButton
