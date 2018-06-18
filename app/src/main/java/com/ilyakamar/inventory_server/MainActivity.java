@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {// START
 
 
         btnSignIn = findViewById(R.id.bt_startScreen_logIn);
-        txtSlogan = findViewById(R.id.txtSlogan);
-        tv_startScreen_welcome = findViewById(R.id.tv_startScreen_welcome);
+//        txtSlogan = findViewById(R.id.txtSlogan);
+//        tv_startScreen_welcome = findViewById(R.id.tv_startScreen_welcome);
 
         Typeface face = Typeface.createFromAsset(getAssets(),"fonts/NABILA.TTF");
-        txtSlogan.setTypeface(face);
-        tv_startScreen_welcome.setTypeface(face);
+//        txtSlogan.setTypeface(face);
+//        tv_startScreen_welcome.setTypeface(face);
 
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {

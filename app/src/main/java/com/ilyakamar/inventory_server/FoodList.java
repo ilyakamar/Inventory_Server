@@ -108,8 +108,8 @@ public class FoodList extends AppCompatActivity {
 
     private void showAddFoodDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodList.this);
-        alertDialog.setTitle("Add new Food");
-        alertDialog.setMessage("Please fill full information");
+        alertDialog.setTitle("הכנס מוצר חדש");
+        alertDialog.setMessage("אנא מלא את כל השדות");
 
         LayoutInflater inflater = this.getLayoutInflater();
         View add_menu_layout = inflater.inflate(R.layout.add_new_food_layout,null);
@@ -117,7 +117,7 @@ public class FoodList extends AppCompatActivity {
         edtName = add_menu_layout.findViewById(R.id.edtName);
         edtDescription = add_menu_layout.findViewById(R.id.edtDescription);
         edtPrice = add_menu_layout.findViewById(R.id.edtPrice);
-        edtDiscount = add_menu_layout.findViewById(R.id.edtDiscount);
+//        edtDiscount = add_menu_layout.findViewById(R.id.edtDiscount);
 
 
         btnSelect = add_menu_layout.findViewById(R.id.btnSelect);
@@ -145,7 +145,7 @@ public class FoodList extends AppCompatActivity {
         alertDialog.setIcon(R.drawable.ic_cart_black_24dp);
 
         // Set button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("כן", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -165,6 +165,12 @@ public class FoodList extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     dialogInterface.cancel();
 
+                }else if (btnSelect.getText().toString().trim().equals("בחר תמונה")){
+                    Toast.makeText(FoodList.this, "צריך לבחור תמונה",
+                            Toast.LENGTH_LONG).show();
+
+
+                    dialogInterface.cancel();
                 }else {
                     dialogInterface.dismiss();
                     // Here , just create new category
@@ -172,7 +178,7 @@ public class FoodList extends AppCompatActivity {
                     {
                         foodList.push().setValue(newFood);
                         // Snackbar
-                        Snackbar.make(rootLayout, "New Category "+newFood.getName() +" was added",
+                        Snackbar.make(rootLayout, "מוצר חדש "+newFood.getName() +" נוסף בהצלחה",
                                 Snackbar.LENGTH_SHORT).show();
                     }
 
@@ -184,7 +190,7 @@ public class FoodList extends AppCompatActivity {
 
             }// end onClick
         });// end setPositiveButton
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("לא", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -232,7 +238,7 @@ public class FoodList extends AppCompatActivity {
         if (saveUri != null)
         {
             final ProgressDialog mDialog = new ProgressDialog(this);
-            mDialog.setMessage("Uploading...");
+            mDialog.setMessage("מעדכן...");
             mDialog.show();
 
             String imageName = UUID.randomUUID().toString();
@@ -243,7 +249,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(FoodList.this,"Uploaded !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FoodList.this,"עודכן !", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -252,7 +258,7 @@ public class FoodList extends AppCompatActivity {
                                     newFood.setName(edtName.getText().toString());
                                     newFood.setDescription(edtDescription.getText().toString());
                                     newFood.setPrice(edtPrice.getText().toString());
-                                    newFood.setDiscount(edtDiscount.getText().toString());
+//                                    newFood.setDiscount(edtDiscount.getText().toString());
                                     newFood.setMenuId(categoryId);
                                     newFood.setImage(uri.toString());
 
@@ -272,7 +278,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mDialog.setMessage("Uploaded "+progress+"%");
+                            mDialog.setMessage("מעודכן "+progress+"%");
 
                         }
                     });
@@ -284,7 +290,7 @@ public class FoodList extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), Common.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent,"בחר תמונה"), Common.PICK_IMAGE_REQUEST);
     }// end chooseImage
 
     @Override
@@ -295,7 +301,7 @@ public class FoodList extends AppCompatActivity {
                 && data!= null && data.getData() != null ){
 
             saveUri = data.getData();
-            btnSelect.setText("Image Selected !");
+            btnSelect.setText("תמונה נבחרה בהצלחה !");
         }
     }// end onActivityResult
 
@@ -322,8 +328,8 @@ public class FoodList extends AppCompatActivity {
     private void showUpdateFoodDialog(final String key, final Food item) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodList.this);
-        alertDialog.setTitle("Edit Food");
-        alertDialog.setMessage("Please fill full information");
+        alertDialog.setTitle("ערוך מוצר");
+        alertDialog.setMessage("אנא מלא את כל הפרטים");
 
         LayoutInflater inflater = this.getLayoutInflater();
         View add_menu_layout = inflater.inflate(R.layout.add_new_food_layout,null);
@@ -331,14 +337,14 @@ public class FoodList extends AppCompatActivity {
         edtName = add_menu_layout.findViewById(R.id.edtName);
         edtDescription = add_menu_layout.findViewById(R.id.edtDescription);
         edtPrice = add_menu_layout.findViewById(R.id.edtPrice);
-        edtDiscount = add_menu_layout.findViewById(R.id.edtDiscount);
+//        edtDiscount = add_menu_layout.findViewById(R.id.edtDiscount);
 
 
         // Set default value for view
         edtName.setText(item.getName());
         edtDescription.setText(item.getDescription());
         edtPrice.setText(item.getPrice());
-        edtDiscount.setText(item.getDiscount());
+//        edtDiscount.setText(item.getDiscount());
 
         btnSelect = add_menu_layout.findViewById(R.id.btnSelect);
         btnUpload = add_menu_layout.findViewById(R.id.btnUpload);
@@ -365,7 +371,7 @@ public class FoodList extends AppCompatActivity {
         alertDialog.setIcon(R.drawable.ic_cart_black_24dp);
 
         // Set button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("כן", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -383,7 +389,8 @@ public class FoodList extends AppCompatActivity {
                     Toast.makeText(FoodList.this, "צריך להגדיר שם",
                             Toast.LENGTH_SHORT).show();
                     dialogInterface.cancel();
-                }else {
+                }
+                else  {
                     dialogInterface.dismiss();
 
                     // Here , just create new category
@@ -391,14 +398,14 @@ public class FoodList extends AppCompatActivity {
                     // Update information
                     item.setName(edtName.getText().toString());
                     item.setPrice(edtPrice.getText().toString());
-                    item.setDiscount(edtDiscount.getText().toString());
+//                    item.setDiscount(edtDiscount.getText().toString());
                     item.setDescription(edtDescription.getText().toString());
 
 
                     foodList.child(key).setValue(item);
 
                     // Snackbar
-                    Snackbar.make(rootLayout, " Food "+item.getName() +" was edited",
+                    Snackbar.make(rootLayout, " מוצר  "+item.getName() +" נוסף בהצלחה",
                             Snackbar.LENGTH_SHORT).show();
                 }
 
@@ -407,7 +414,7 @@ public class FoodList extends AppCompatActivity {
 
             }
         });// end setPositiveButton
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("לא", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -426,7 +433,7 @@ public class FoodList extends AppCompatActivity {
         if (saveUri != null)
         {
             final ProgressDialog mDialog = new ProgressDialog(this);
-            mDialog.setMessage("Uploading...");
+            mDialog.setMessage("מעדכן...");
             mDialog.show();
 
             String imageName = UUID.randomUUID().toString();
@@ -437,7 +444,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(FoodList.this,"Uploaded !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FoodList.this,"עודכן !", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -460,7 +467,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mDialog.setMessage("Uploaded "+progress+"%");
+                            mDialog.setMessage("עודכן "+progress+"%");
 
                         }
                     });

@@ -4,24 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Signin">
+    tools:context=".Signin"
+    android:background="@drawable/logomain">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:background="@color/colorGreyTransparent">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="541dp"
+            android:layout_centerHorizontal="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -31,77 +25,81 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:text="Sign IN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
-                    android:textSize="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="2"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorBlack"
-                    android:layout_weight="2"/>
-
+                    android:text="מנהל"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="120dp">
-
-
+                android:layout_height="match_parent"
+                android:layout_marginTop="120dp"
+                android:orientation="vertical">
 
 
                 <EditText
-                    android:text="0542431395"
                     android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="108dp"
                     android:background="@drawable/element_for_ractangel"
                     android:drawableRight="@drawable/ic_local_phone_black_24dp"
-                    android:hint="Phone"
-                    android:textAlignment="center"
-                    android:inputType="phone"/>
+                    android:hint="מספר נייד"
+                    android:inputType="phone"
+                    android:text="0542431395"
+                    android:textAlignment="center" />
 
                 <EditText
-                    android:text="123456"
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/edtPhone"
+                    android:layout_marginTop="-108dp"
                     android:background="@drawable/element_for_ractangel"
                     android:drawableRight="@drawable/ic_lock_black_24dp"
-                    android:hint="Password"
-                    android:textAlignment="center"
-                    android:inputType="textPassword"/>
-
+                    android:hint="סיסמה"
+                    android:inputType="textPassword"
+                    android:text="123456"
+                    android:textAlignment="center" />
 
 
                 <Button
                     android:id="@+id/btnSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign Iמ"
-                    android:textColor="@color/colorWhite"
-                    android:background="@drawable/button_black"/>
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/button_black"
+                    android:text="כניסה"
+                    android:textColor="@color/colorWhite" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
             <ProgressBar
                 android:id="@+id/progressbar_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </LinearLayout>
 
 
-    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

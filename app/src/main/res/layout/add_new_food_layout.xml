@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Name"
+            android:hint="שם מוצר"
             android:text=""
             android:textSize="34sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:hint="Description"
+            android:hint="תיאור המוצר"
             android:text=""
             android:textSize="24sp" />
 
@@ -44,21 +44,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Price"
+            android:hint="מחיר"
             android:text=""
             android:textSize="34sp" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtDiscount"
-            app:met_baseColor="@color/colorBlack"
-            app:met_maxCharacters="11"
-            app:met_singleLineEllipsis="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Discount"
-            android:text=""
-            android:textSize="34sp" />
+        <!--<com.rengwuxian.materialedittext.MaterialEditText-->
+            <!--android:id="@+id/edtDiscount"-->
+            <!--app:met_baseColor="@color/colorBlack"-->
+            <!--app:met_maxCharacters="11"-->
+            <!--app:met_singleLineEllipsis="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="number"-->
+            <!--android:hint="Discount"-->
+            <!--android:text=""-->
+            <!--android:textSize="34sp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:text="SELECT" />
+                android:text="בחר תמונה" />
 
             <Button
                 android:id="@+id/btnUpload"
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:text="Upload" />
+                android:text="העלה תמונה" />
 
 
         </LinearLayout>

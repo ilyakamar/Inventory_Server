@@ -58,7 +58,7 @@ public class Signin extends AppCompatActivity {
     private void signInUser(final String phone , String password) {
 
         final ProgressDialog mDialog = new  ProgressDialog(Signin.this);
-        mDialog.setMessage("Please waiting...");
+        mDialog.setMessage("אנא המתן...");
         mDialog.show();
 
         final String  localPhone = phone;
@@ -82,17 +82,17 @@ public class Signin extends AppCompatActivity {
                             finish();
 
                         }else {
-                            Toast.makeText(Signin.this, "Wrong password !",
+                            Toast.makeText(Signin.this, "סיסמה שגויה !",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(Signin.this, "Please login with Staff account",
+                        Toast.makeText(Signin.this, "אנא הרשם בתור מנהל",
                                 Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
                     mDialog.dismiss();
-                    Toast.makeText(Signin.this, "User not exist in Database",
+                    Toast.makeText(Signin.this, "המשתמש אינו רשום במערכת",
                             Toast.LENGTH_SHORT).show();
                 }
             }// end onDataChange

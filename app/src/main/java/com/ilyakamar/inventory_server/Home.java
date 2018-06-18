@@ -77,10 +77,11 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {// onCreate *******************
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        //t
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu Management");
+        toolbar.setTitle("מסך ניהול קטגוריות");
         setSupportActionBar(toolbar);
-
+        //t end
 
         // Init Firebase
         database = FirebaseDatabase.getInstance();
@@ -93,19 +94,22 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                //t
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                //t end
 
                 showDialog();
             }
         });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //t
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        //t end
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -130,8 +134,8 @@ public class Home extends AppCompatActivity
 
     private void showDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
-        alertDialog.setTitle("Add new Category");
-        alertDialog.setMessage("Please fill full information");
+        alertDialog.setTitle("הוסף קטגוריה חדשה");
+        alertDialog.setMessage("");
 
         LayoutInflater inflater = this.getLayoutInflater();
         View add_menu_layout = inflater.inflate(R.layout.add_new_menu_layout,null);
@@ -162,24 +166,42 @@ public class Home extends AppCompatActivity
         alertDialog.setIcon(R.drawable.ic_cart_black_24dp);
 
         // Set button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("כן", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                dialogInterface.dismiss();
-
-                // Here , just create new category
-                if (newCategory != null)
+                if (edtName.getText().toString().trim().equals("") )
                 {
-                    categories.push().setValue(newCategory);
+                    Toast.makeText(Home.this, "צריך להגדיר שם",
+                            Toast.LENGTH_LONG).show();
+                    dialogInterface.cancel();
 
-                    // Snackbar
-                    Snackbar.make(drawer, "New Category "+newCategory.getName() +" was added",
-                            Snackbar.LENGTH_SHORT).show();
+                }else if (btnSelect.getText().toString().trim().equals("בחר תמונה")){
+                    Toast.makeText(Home.this, "צריך להגדיר תמונה",
+                            Toast.LENGTH_LONG).show();
+                    dialogInterface.cancel();
+
+                }else {
+
+                    dialogInterface.dismiss();
+
+                    // Here , just create new category
+                    if (newCategory != null)
+                    {
+                        categories.push().setValue(newCategory);
+
+                        // Snackbar
+                        Snackbar.make(drawer, "קטגוריה חדשה "+newCategory.getName() +" נוצרה בהצלחה",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
                 }
+
+
+
+
             }
         });// end setPositiveButton
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("לא", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -195,7 +217,7 @@ public class Home extends AppCompatActivity
         if (saveUri != null)
         {
             final ProgressDialog mDialog = new ProgressDialog(this);
-            mDialog.setMessage("Uploading...");
+            mDialog.setMessage("מעדכן...");
             mDialog.show();
 
             String imageName = UUID.randomUUID().toString();
@@ -206,7 +228,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                           mDialog.dismiss();
-                            Toast.makeText(Home.this,"Uploaded !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this,"מעלה !", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -229,7 +251,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mDialog.setMessage("Uploaded "+progress+"%");
+                            mDialog.setMessage("עודכן "+progress+"%");
 
                         }
                     });
@@ -246,7 +268,7 @@ public class Home extends AppCompatActivity
                 && data!= null && data.getData() != null ){
 
             saveUri = data.getData();
-            btnSelect.setText("Image Selected !");
+            btnSelect.setText("תמונה נבחרה !");
         }
 
 
@@ -257,7 +279,7 @@ public class Home extends AppCompatActivity
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"),Common.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent,"בחר תמונה"),Common.PICK_IMAGE_REQUEST);
     }// end chooseImage
 
     private void loadMenu() {
@@ -304,6 +326,7 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
@@ -330,6 +353,12 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
+        if (id == R.id.nav_orders)
+        {
+            Intent orders = new Intent(Home.this,OrderStatus.class);
+            startActivity(orders);
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -359,15 +388,15 @@ public class Home extends AppCompatActivity
 
     private void deleteCategory(String key) {
         categories.child(key).removeValue();
-        Toast.makeText(Home.this, "Item deleted",
+        Toast.makeText(Home.this, "הפריט נמחק",
                 Toast.LENGTH_SHORT).show();
     }
 
     private void showUpdateDialog(final String key, final Category item) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
-        alertDialog.setTitle("Update Category");
-        alertDialog.setMessage("Please fill full information");
+        alertDialog.setTitle("עדכן קטגוריה");
+        alertDialog.setMessage("אנא הזן את כל הנתונים");
 
         LayoutInflater inflater = this.getLayoutInflater();
         View add_menu_layout = inflater.inflate(R.layout.add_new_menu_layout,null);
@@ -401,7 +430,7 @@ public class Home extends AppCompatActivity
         alertDialog.setIcon(R.drawable.ic_cart_black_24dp);
 
         // Set button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("כן", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -413,7 +442,7 @@ public class Home extends AppCompatActivity
 
             }
         });// end setPositiveButton
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("לא", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -430,7 +459,7 @@ public class Home extends AppCompatActivity
         if (saveUri != null)
         {
             final ProgressDialog mDialog = new ProgressDialog(this);
-            mDialog.setMessage("Uploading...");
+            mDialog.setMessage("מעדכן...");
             mDialog.show();
 
             String imageName = UUID.randomUUID().toString();
@@ -441,7 +470,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(Home.this,"Uploaded !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this,"מעודכן !", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -464,7 +493,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mDialog.setMessage("Uploaded "+progress+"%");
+                            mDialog.setMessage("מעודכן "+progress+"%");
 
                         }
                     });
