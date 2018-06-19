@@ -44,7 +44,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onCreateContextMenu(ContextMenu contextMenu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
-        contextMenu.add(0,0,getAdapterPosition(),"Update");
-        contextMenu.add(0,1,getAdapterPosition(),"Update");
+        contextMenu.add(0,0,getAdapterPosition(),"עדכון");
+        contextMenu.add(0,1,getAdapterPosition(),"מחיקה");
     }// end onCreateContextMenu
 } //END

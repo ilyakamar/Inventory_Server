@@ -1,11 +1,15 @@
 package com.ilyakamar.inventory_server;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +18,7 @@ import com.ilyakamar.inventory_server.Common.Common;
 import com.ilyakamar.inventory_server.Interface.ItemClickListener;
 import com.ilyakamar.inventory_server.Model.Request;
 import com.ilyakamar.inventory_server.ViewHolder.OrderViewHolder;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class OrderStatus extends AppCompatActivity {
 
@@ -25,6 +30,8 @@ public class OrderStatus extends AppCompatActivity {
 
     FirebaseDatabase db;
     DatabaseReference requests;
+
+    MaterialSpinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,53 @@ public class OrderStatus extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {// onContextItemSelected
+        if (item.getTitle().equals(Common.UPDATE))
+        {
+            showUpdateDialog(adapter.getRef(item.getOrder()).getKey(),adapter.getItem(item.getOrder()));
+        }
+        else if (item.getTitle().equals(Common.DELETE))
+        {
+            deleteOrder(adapter.getRef(item.getOrder()).getKey());
+        }
         return super.onContextItemSelected(item);
     }// end onContextItemSelected
+
+    private void deleteOrder(String key) {// deleteOrder
+        requests.child(key).removeValue();
+    }// end deleteOrder
+
+    private void showUpdateDialog(String key, final Request item) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(OrderStatus.this);
+        alertDialog.setTitle("עדכן הזמנה");
+        alertDialog.setMessage("אנא בחר סטטוס");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.update_order_layout,null);
+
+        spinner = view.findViewById(R.id.statusSpinner);
+//        spinner.setItems("Placed","On my way","Shipped");
+        spinner.setItems("ההזמנה התקבלה","ההזמנה בטיפול","המשלוח בדרך");
+
+        alertDialog.setView(view);
+
+        final String localKey = key;
+        alertDialog.setPositiveButton("כן", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                dialogInterface.dismiss();
+                item.setStatus(String.valueOf(spinner.getSelectedIndex()));
+
+                requests.child(localKey).setValue(item);
+            }
+        });// end setPositiveButton
+
+        alertDialog.setNegativeButton("לא", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                dialogInterface.dismiss();
+            }
+        });// end setNegativeButton
+
+        alertDialog.show();
+    }// end showUpdateDialog
 }// END
