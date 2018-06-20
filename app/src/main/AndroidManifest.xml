@@ -32,7 +32,8 @@
         <activity
             android:name=".FoodList"
             android:screenOrientation="portrait" />
-        <activity android:name=".OrderStatus"></activity>
+        <activity android:name=".OrderStatus" />
+        <activity android:name=".OrderDetail"></activity>
     </application>
 
 </manifest>

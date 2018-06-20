@@ -8,7 +8,10 @@ import android.widget.TextView;
 import com.ilyakamar.inventory_server.Interface.ItemClickListener;
 import com.ilyakamar.inventory_server.R;
 
-public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
+public class OrderViewHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener,
+        View.OnCreateContextMenuListener,
+        View.OnLongClickListener{
 
 
     public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderAddress;
@@ -27,6 +30,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
 
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
     }
 
@@ -47,4 +51,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         contextMenu.add(0,0,getAdapterPosition(),"עדכון");
         contextMenu.add(0,1,getAdapterPosition(),"מחיקה");
     }// end onCreateContextMenu
+
+    @Override
+    public boolean onLongClick(View view) {
+        itemClickListener.onClick(view, getAdapterPosition(), true);
+        return true;
+    }
 } //END

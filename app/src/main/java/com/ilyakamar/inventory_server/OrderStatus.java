@@ -1,6 +1,8 @@
 package com.ilyakamar.inventory_server;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -60,7 +64,7 @@ public class OrderStatus extends AppCompatActivity {
                 requests
         ) {
             @Override
-            protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {// populateViewHolder
+            protected void populateViewHolder(OrderViewHolder viewHolder, final Request model, int position) {// populateViewHolder
                 viewHolder.txtOrderId.setText(adapter.getRef(position).getKey());
                 viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
                 viewHolder.txtOrderAddress.setText(model.getAddress());
@@ -69,7 +73,17 @@ public class OrderStatus extends AppCompatActivity {
                 viewHolder.setItemClickListener(new ItemClickListener() {// setItemClickListener
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        // just implement it to fix Crash when click to this item
+
+                        if (!isLongClick){
+                            Intent orderDetail = new Intent(OrderStatus.this,OrderDetail.class);
+                            Common.currentRequest = model;
+                            orderDetail.putExtra("OrderId",adapter.getRef(position).getKey());
+                            startActivity(orderDetail);
+                        }else {
+
+
+                        }
+
                     }
                 });// end setItemClickListener
 
